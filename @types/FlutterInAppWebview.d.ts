@@ -1,13 +1,4 @@
-
-export {};
-
-declare global {
-  interface Window {
-    flutter_inappwebview?: FlutterInAppWebview;
-  }
-}
-
-interface FlutterInAppWebview {
+export interface FlutterInAppWebview {
   callHandler<N extends keyof FlutterSideFunction>(
     handlerName: N,
     ...args: Parameters<FlutterSideFunction[N]>
@@ -18,8 +9,6 @@ interface FlutterInAppWebview {
 interface FlutterSideFunction {
   clayfulSignIn(): AppTokens;
 }
-
-type PromiseResolveType<P> = P extends Promise<infer R> ? R : never;
 
 type AppTokens = {
   appTokens: null | {
