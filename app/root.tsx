@@ -9,26 +9,12 @@ import {
 } from "@remix-run/react";
 import type { FlutterInAppWebview } from "../@types/FlutterInAppWebview";
 
-type AppTokens = {
-  appTokens: null | {
-    accessToken: string;
-    refreshToken: string;
-    clayful: null | {
-      token: string;
-    };
-  };
-};
-
-// Flutter side에서 정의된 함수 타입. callHandler 타입 정의에 사용
-interface FlutterSideFunction {
-  clayfulSignIn(): AppTokens;
-  checkLogin(): void;
-  refreshUserProfile(): void;
-}
-
 declare global {
   interface Window {
     flutter_inappwebview?: FlutterInAppWebview<FlutterSideFunction>;
+  }
+  interface WindowEventMap {
+    flutterInAppWebViewPlatformReady: Event;
   }
 }
 
@@ -70,3 +56,20 @@ export default function App() {
     </html>
   );
 }
+
+// Flutter side에서 정의된 함수 타입. callHandler 타입 정의에 사용
+interface FlutterSideFunction {
+  clayfulSignIn(): AppTokens;
+  checkLogin(): void;
+  refreshUserProfile(): void;
+}
+
+type AppTokens = {
+  appTokens: null | {
+    accessToken: string;
+    refreshToken: string;
+    clayful: null | {
+      token: string;
+    };
+  };
+};
