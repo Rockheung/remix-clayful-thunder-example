@@ -1,21 +1,10 @@
-export interface FlutterInAppWebview {
-  callHandler<N extends keyof FlutterSideFunction>(
-    handlerName: N,
-    ...args: Parameters<FlutterSideFunction[N]>
-  ): Promise<ReturnType<FlutterSideFunction[N]>>;
+// TODO: 정의된 함수 타입들의 args가 Serializable해야 하도록 강제 필요
+export interface FlutterInAppWebview<H extends FunctionPropertyOnly<H>> {
+  callHandler<N extends keyof H>(
+    handlerName: N
+  ): H[N] extends (...args: any) => any ? Promise<ReturnType<H[N]>> : never;
 }
 
-// Flutter side에서 정의된 함수 타입. callHandler 타입 정의에 사용
-interface FlutterSideFunction {
-  clayfulSignIn(): AppTokens;
-}
-
-type AppTokens = {
-  appTokens: null | {
-    accessToken: string;
-    refreshToken: string;
-    clayful: null | {
-      token: string;
-    };
-  };
+type FunctionPropertyOnly<I> = {
+  [K in keyof I]: I[K] extends (...args: any) => any ? I[K] : never;
 };
