@@ -18,6 +18,7 @@
   "devDependencies": {
     "@remix-run/dev": "^1.7.5",
     "@remix-run/eslint-config": "^1.7.5",
+    "@types/jquery": "^1.10.39",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "eslint": "^8.23.1",
