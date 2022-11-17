@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useEffect, useRef } from "react";
 import type { ComponentName, ThunderCallback } from "~/@types/ClayfulThunder";
 
 type Props = {

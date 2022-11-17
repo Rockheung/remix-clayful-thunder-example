@@ -14,6 +14,8 @@
 $ npm i
 $ cp .env.example .env
 ```
+clayful sdk 키가 없어도 mock server가 작동하여 실행에 문제는 없습니다.
+
 
 ## Run
 

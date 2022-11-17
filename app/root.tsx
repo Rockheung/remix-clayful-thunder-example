@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import type { MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
