@@ -7,9 +7,22 @@ export interface Thunder {
   render(
     selector: JQuerySelector,
     componentName: ComponentName,
-    option: any
+    option?: unknown,
+    callback?: ThunderCallback,
   ): Thunder;
+  options?: ThunderOption
 }
+
+type ThunderError = {
+  default?: string
+}
+
+export type ThunderCallback = (
+  err: ThunderError,
+  { interfaces, context }: { interfaces: any; context: ThunderContext }
+) => void;
+
+export type ThunderContext = unknown;
 
 // https://www.notion.so/69873807cb01478f8bd0510e56290095
 type ThunderOption = { client: string } & Partial<{

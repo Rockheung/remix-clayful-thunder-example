@@ -1,4 +1,6 @@
+import { useEffect, useLayoutEffect } from "react";
 import type { MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -6,17 +8,29 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
-import type { FlutterInAppWebview } from "../@types/FlutterInAppWebview";
+import type { FlutterInAppWebview } from "./@types/FlutterInAppWebview";
+import type { Thunder } from "./@types/ClayfulThunder";
 
 declare global {
   interface Window {
     flutter_inappwebview?: FlutterInAppWebview<FlutterSideFunction>;
+    $: JQueryStatic;
+    Thunder?: Thunder;
+    env: {
+      PUBLIC_IAMPORT_STORE_ID: string;
+      PUBLIC_CLAYFUL_PUBLIC_CLIENT_TOKEN_DEV: string;
+      PUBLIC_MOCK_ENDPOINT_URL: string;
+    };
   }
   interface WindowEventMap {
     flutterInAppWebViewPlatformReady: Event;
+    updateJQuerySide: Event;
   }
 }
+
+const PUBLIC_PREFIX = "PUBLIC_";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -24,7 +38,44 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
+export async function loader() {
+  return json(filterPublicEnv(process.env));
+}
+
+const filterPublicEnv = (env: typeof process.env) => {
+  return Object.fromEntries(
+    Object.entries(env).filter((entry) => entry[0].startsWith(PUBLIC_PREFIX))
+  );
+};
+
+export function ErrorBoundary({ error }: { error: unknown }) {
+  console.warn(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {/* add the UI you want your users to see */}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
 export default function App() {
+  const env = useLoaderData();
+
+  useEffect(() => {
+    if (typeof window.Thunder === "undefined") return;
+    window.Thunder({
+      client: window.env.PUBLIC_CLAYFUL_PUBLIC_CLIENT_TOKEN_DEV,
+    });
+    window.dispatchEvent(new Event("updateJQuerySide"));
+  }, []);
+
   return (
     <html lang="ko">
       <head>
@@ -35,6 +86,13 @@ export default function App() {
           rel="stylesheet"
           href="https://code.clayful.io/clayful-thunder@1.2.3/theme/basic/style.min.css"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          window.env = ${JSON.stringify(env)}
+        `,
+          }}
+        ></script>
       </head>
       <body>
         <Outlet />
