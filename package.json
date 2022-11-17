@@ -2,6 +2,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
+    "postinstall": "patch-package",
     "predev": "HAR=./mock/clayful-mock.har node mock/mock-server.js &",
     "test": "eslint app/** && tsc --noEmit",
     "build": "remix build",
@@ -24,7 +25,8 @@
     "@types/react-dom": "^18.0.6",
     "cors": "^2.8.5",
     "eslint": "^8.23.1",
-    "har-express": "file:../../git/har-express",
+    "har-express": "^1.1.0",
+    "patch-package": "^6.5.0",
     "typescript": "^4.7.4"
   },
   "engines": {
