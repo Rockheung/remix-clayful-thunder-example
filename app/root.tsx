@@ -71,6 +71,7 @@ export default function App() {
   useEffect(() => {
     if (typeof window.Thunder === "undefined") return;
     window.Thunder({
+      baseURL: window.env.PUBLIC_MOCK_ENDPOINT_URL,
       client: window.env.PUBLIC_CLAYFUL_PUBLIC_CLIENT_TOKEN_DEV,
     });
     window.dispatchEvent(new Event("updateJQuerySide"));
