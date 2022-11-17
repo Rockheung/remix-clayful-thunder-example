@@ -21,4 +21,4 @@ $ cp .env.example .env
 $ npm run dev
 ```
 
-실행 후 http://localhost:8080로 접속하셔야 cors 적용되어 mock 서버 사용 가능합니다.
+실행 후 [http://localhost:8080](http://localhost:8080) 로 접속하셔야 cors 적용되어 mock 서버 사용 가능합니다.
