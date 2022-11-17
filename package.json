@@ -4,7 +4,7 @@
   "scripts": {
     "postinstall": "patch-package",
     "predev": "HAR=./mock/clayful-mock.har node mock/mock-server.js &",
-    "test": "eslint app/** && tsc --noEmit",
+    "test": "eslint app/** && tsc --noEmit && playwright test",
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve build"
@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.28.0",
     "@remix-run/dev": "^1.7.5",
     "@remix-run/eslint-config": "^1.7.5",
     "@types/jquery": "^1.10.39",
