@@ -13,7 +13,8 @@ const ThunderComponentWrapper = (props: Props) => {
     if (
       typeof window.Thunder === "undefined" ||
       typeof window.Thunder.options === "undefined" ||
-      wrapperRef.current === null
+      wrapperRef.current === null ||
+      wrapperRef.current.hasChildNodes()
     )
       return;
     window.Thunder.render(
