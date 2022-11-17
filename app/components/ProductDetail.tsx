@@ -14,9 +14,15 @@ type Props = {
     $container: HTMLElement,
     context: ThunderContext,
     item: { _id: string }
-  ) => Thunder;
-  onItemAdd: ($container: HTMLElement, context: ThunderContext) => Thunder;
-  onGoToCart: ($container: HTMLElement, context: ThunderContext) => Thunder;
+  ) => Thunder | void;
+  onItemAdd: (
+    $container: HTMLElement,
+    context: ThunderContext
+  ) => Thunder | void;
+  onGoToCart: (
+    $container: HTMLElement,
+    context: ThunderContext
+  ) => Thunder | void;
 };
 const ProductDetail = (props: Partial<Props>) => {
   return <ThunderComponentWrapper name={"product-detail"} options={props} />;

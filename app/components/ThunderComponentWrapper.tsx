@@ -24,7 +24,7 @@ const ThunderComponentWrapper = (props: Props) => {
     );
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.addEventListener("updateJQuerySide", mountThunderComponent);
     return () => {
       window.removeEventListener("updateJQuerySide", mountThunderComponent);
