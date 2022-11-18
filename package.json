@@ -2,6 +2,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
+    "prepare": "husky install",
     "postinstall": "patch-package",
     "predev": "HAR=./mock/clayful-mock.har node mock/mock-server.js &",
     "test": "eslint app/** && tsc --noEmit",
